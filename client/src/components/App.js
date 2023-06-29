@@ -7,6 +7,8 @@ import Header from './Header'
 import CountryList from './CountryList'
 import NewTripForm from './NewTripForm'
 import UpdateTripForm from './UpdateTripForm'
+import Search from './Search'
+
 
 function App() {
 
@@ -15,9 +17,13 @@ function App() {
   const [postFormData, setPostFormData] = useState({})
   const [idToUpdate, setIdToUpdate] = useState(0)
   const [patchFormData, setPatchFormData] = useState({})
+  const [users, setUsers] = useState([])
+  const [search, setSearch] = useState('')
+
+  // http://127.0.0.1:7000
 
   useEffect(() => {
-    fetch('http://localhost:4000/countries')
+    fetch('/countries')
     .then(response => response.json())
     .then(countryData => setCountries(countryData))
   }, [])
@@ -33,6 +39,12 @@ function App() {
       setIdToUpdate(trips[0].id)
     }
   }, [trips])
+
+  useEffect(() => {
+    fetch('/users')
+    .then(response => response.json())
+    .then(userData => setUsers(userData))
+  }, [])
 
   function addTrip(event){
     event.preventDefault()
@@ -85,6 +97,17 @@ function App() {
     }))
   }
 
+function searchCountry(e) {
+    setSearch(e.target.value)
+}
+
+const filterCountry = countries.filter(country => {
+    if (search ==='') {
+        return true
+    }
+    return country.country_name.toLowerCase().includes(search.toLowerCase())
+})
+
   function updatePostFormData(event){
     setPostFormData({...postFormData, [event.target.name]: event.target.value})
   }
@@ -100,13 +123,18 @@ function App() {
       <Switch>
         <Route exact path="/">
           <h1>Welcome! Here is the list of Trips:</h1>
-          <CountryList countries={countries}/>
+          <Search search = {search} setSearch = {setSearch} searchCountry = {searchCountry}/>
+          <CountryList countries={filterCountry}/>
         </Route>
         <Route path="/add_trip">
-          <NewTripForm addTrip={addTrip} updatePostFormData={updatePostFormData}/>
+          <NewTripForm users = {users} addTrip={addTrip} updatePostFormData={updatePostFormData}/>
         </Route>
         <Route path="/update_trip">
           <UpdateTripForm updateTrip={updateTrip} setIdToUpdate={setIdToUpdate} updatePatchFormData={updatePatchFormData} trips={trips}/>
+        </Route>
+        <Route>
+          <Search search = {search} setSearch = {setSearch} searchCountry = {searchCountry}/>
+          <CountryList countries={filterCountry}/>
         </Route>
       </Switch>
     </div>

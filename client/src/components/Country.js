@@ -1,11 +1,21 @@
-function Country({country, deleteCountry}){
+import {useState, useEffect} from 'react'
+
+
+function Country({country}){
+
+    const [toggle, setToggle] = useState(false)
+
+    function toggleCard() {
+        setToggle(toggle => !toggle)
+    }
+
+
     return (
-        <li className="country">
-            <h1>Country # {country.id}: {country.name}</h1>
-            <img src={country.image} alt={country.name} />
-            <p>{country.name}</p>
-            <button onClick={() => deleteCountry(country.id)}></button>
-        </li>
+        <div className="card">
+            <h1>Country # {country.id}: {country.country_name}</h1>
+            <img onClick={toggleCard} src={country.country_image} alt={country.country_name}/>
+            <p>{country.country_name}</p>
+        </div>
     )
 }
 

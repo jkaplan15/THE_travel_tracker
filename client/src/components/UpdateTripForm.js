@@ -20,8 +20,8 @@ function UpdateTripForm({updateTrip, setIdToUpdate, updatePatchFormData, trips})
                     return <option key={trip.id} value={trip.id}>{`${trip.id}: ${trip.name}`}</option>
                 })}
                 </select>
-                <input onChange={updatePatchFormData} type="text" name="name" placeholder="Hotel name"/>
-                <input onChange={updatePatchFormData} type="text" name="image" placeholder="Image URL"/>
+                <input onChange={updatePatchFormData} type="text" name="name" placeholder="Country name"/>
+                <input onChange={updatePatchFormData} type="text" name="date" placeholder="Date / Time"/>
                 <input type="submit" value="Update Trip"/>
             </form>}
         </div>

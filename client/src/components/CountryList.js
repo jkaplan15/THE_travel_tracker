@@ -1,13 +1,13 @@
 import Country from './Country'
 
-function CountryList({countries, deleteCountry}){
+function CountryList({countries}){
 
     const countryComponents = countries.map(country => {
-        return <Country key={country.id} country={country} deleteCountry={deleteCountry}/>
+        return <Country key={country.id} country={country} />
     })
 
     return (
-        <ul className="country-list">{countryComponents}</ul>
+        <div className="country-list">{countryComponents}</div>
         )
 }
 

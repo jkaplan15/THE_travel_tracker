@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function NewTripForm({addTrip, updatePostFormData}){
+function NewTripForm({addTrip, updatePostFormData, users}){
 
     const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -12,8 +12,8 @@ function NewTripForm({addTrip, updatePostFormData}){
                 addTrip(event)
                 setFormSubmitted(formSubmitted => !formSubmitted)
             }}>
-                <input onChange={updatePostFormData} type="text" name="name" placeholder="Hotel name" required/>
-                <input onChange={updatePostFormData} type="text" name="image" placeholder="Image URL" required/>
+                <input onChange={updatePostFormData} type="text" name="name" placeholder="Country name" required/>
+                <input onChange={updatePostFormData} type="text" name="image" placeholder="Date (YYYY-MM-DD)" required/>
                 <input type="submit" value="Add Trip"/>
             </form>}
         </div>
